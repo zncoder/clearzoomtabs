@@ -1,16 +1,9 @@
-let zoomTabs = {}               // url => tab id
-
 async function closeZoomTabs() {
   let tabs = await new Promise(r => chrome.tabs.query({}, x => r(x)))
   let toRemove = []
-  let newTabs = {}
   for (let t of tabs) {
-    let u = t.url
-    let tid = zoomTabs[u]
-    if (tid) {
-      toRemove.push(tid)
-    } else if (isZoomTab(u)) {
-      newTabs[u] = t.id
+    if (!t.active && isZoomTab(t.url)) {
+      toRemove.push(t.id)
     }
   }
 
@@ -22,7 +15,6 @@ async function closeZoomTabs() {
       console.log(`removed ${toRemove.length} tabs`)
     })
   }
-  zoomTabs = newTabs
 }
 
 function isZoomTab(url) {
