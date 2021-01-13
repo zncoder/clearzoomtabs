@@ -1,6 +1,6 @@
 {
-  "name": "cleanzoomtabs",
-  "version": "1.0.0",
+  "name": "clearzoomtabs",
+  "version": "1.1.0",
   "manifest_version": 2,
   "description": "Close zoom launch meeting tabs automatically",
 	"permissions": [
@@ -15,6 +15,6 @@
 	"browser_action": {
 		"browser_style": true,
 		"default_icon": "icons/32.png",
-		"default_title": "Clean Zoom launch meeting tabs"
+		"default_title": "Clear Zoom launch meeting tabs"
 	}
 }

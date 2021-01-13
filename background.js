@@ -1,13 +1,16 @@
+let last = new Set()
+
 async function closeZoomTabs() {
   let tabs = await new Promise(r => chrome.tabs.query({}, x => r(x)))
-  let toRemove = []
+  let next = new Set()
   for (let t of tabs) {
-    if (!t.active && isZoomTab(t.url)) {
-      toRemove.push(t.id)
+    if (!last.has(t.id) && isZoomTab(t.url)) {
+      next.add(t.id)
     }
   }
 
-  if (toRemove.length > 0) {
+  if (last.size > 0) {
+    let toRemove = [...last]
     chrome.tabs.remove(toRemove, () => {
       if (chrome.runtime.lastError) {
         console.log(`remove tabs err:${chrome.runtime.lastError.message}`)
@@ -15,6 +18,7 @@ async function closeZoomTabs() {
       console.log(`removed ${toRemove.length} tabs`)
     })
   }
+  last = next
 }
 
 function isZoomTab(url) {
