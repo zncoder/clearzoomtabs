@@ -23,7 +23,7 @@ async function closeZoomTabs() {
 
 function isZoomTab(url) {
   let u = new URL(url)
-  return u.hostname.endsWith(".zoom.us") && url.endsWith("#success")
+  return u.hostname.endsWith(".zoom.us")
 }
 
 function init() {
